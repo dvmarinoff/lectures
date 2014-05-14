@@ -1,0 +1,390 @@
+/*PHP OOP*/
+/*Intro to OOP*/
+//Hello World
+<?php 
+
+class HelloWorld 
+{
+	function sayHello(){
+		return "Hello World!";
+	}
+}
+
+?>
+//- the closing tag may be deleted. The whitespace may corrupt the
+//  html.
+//- one file one class
+//- private methods names begin with '_'
+
+<?php 
+
+$msg = new HelloWorld();
+$msg->sayHello();
+
+ ?>
+
+//Properties:
+
+<?php 
+
+class Car
+{
+	private $carMake;
+
+	public function setMake($make){
+		$this->carMake = $make;
+	}
+
+	public function getMake(){
+		return $this->carMake;
+	}
+}
+
+ ?>
+
+//Constructors and destructors:
+- destructors are used to control destruction of objects 
+- old syntax:
+<?php 
+
+class ClassName 
+{
+	
+	public function ClassName(argument)
+	{
+		# code...
+	}
+}
+ ?>
+- new syntax:
+<?php  
+
+class ClassName 
+{
+	
+	public function __construct(argument)
+	{
+		# code...
+	}
+
+	public function __destruct(){
+
+	}
+} ?>
+
+//Inheritance:
+- extends
+- overriding methods:
+- final - the method can not be overriden 
+<?php 
+class Human extends Animal
+{	
+
+}
+?>
+<?php 
+class SuperMan extends Human
+{
+
+}
+ ?>
+
+//__get(), __set() and __call():
+- php is dynamic language and fields and properties can be
+ dynamically defined without any error. You can call on non-
+ existing field and it will be created.
+- these methods may be kept empty to prevent dynamic definition
+ or the data may be pushed to an arrayand kept there in secure
+ place if needed later.
+- calling undefind method will cause an error. This can be handled
+ with __call(). Data about this will be kept.
+
+<?php 
+class ClassName extends AnotherClass
+{
+	public $data = array();
+
+	public function __get($name){
+		return $this->data[$name];
+	}
+	public function __set($name, $value){
+		$this->data[$name] = $value;
+	}
+	public function __call($name, $argument){
+		echo $name . "<br />";
+		print_r($argument);
+	}
+	
+	//static:
+	static public function validateName(){
+		return "OK";
+	}
+
+}
+?>
+
+//Static methods and properties:
+- static and :: to call + $ for static properties
+- use self + :: + name of static property or method to
+ call it from inside the class.
+- static properties and methods are a good way to control
+ some type of attribute or behavior on all instances of
+ the class with one call.
+- class SuperMan with static property age. The age of all 
+ instances can be changed with modification of age.
+
+//parent:
+- to inherit from base class.
+
+<?php 
+class SuperMan extends Human
+{
+	
+	function __construct(argument)
+	{
+		parent::__construct();
+		# code...
+	}
+}
+?>
+
+//Interfaces and abstract classes:
+- 
+
+<?php 
+    interface iPlugin
+	{
+		function play($stream);
+		function stop();
+	}
+?>
+
+<?php 
+    abstract class MyPlugin implement iPlugin 
+	{
+		# code...
+	}
+?>
+
+//Documentation:
+<?php 
+/**
+*@author val
+*@todo some functionality
+*/
+class ClassName extends AnotherClass
+{
+	
+	function __construct(argument)
+	{
+		# code...
+	}
+
+	/**
+	 * This is a test method.
+	 *@param string $a
+	 *@param int $b
+	 *@return bool
+	 */
+	public function Test($a, $b)
+	{	
+		return true;
+	}
+}
+?>
+
+//Hiding fields:
+- private + getter and setter
+- Alt + Insert - to generate
+- validation:
+
+if(age < 100){
+	$this->age = value;
+}
+
+//Exeptions:
+- throw new exeption("msg", id);
+- use exeptions everywhere
+<?php 
+try {
+	
+} catch (Exception $e) {
+	echo $e->getCode();
+}
+?>
+- application exeptions:
+<?php 
+class MyExeption extends Exception
+{
+	public function wtf(){
+		echo 'wtf';
+	}	
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+/*PHP web*/
+/ * Include, require:
+- code must logicaly devided between separate files.
+- include - include a file.
+- require - do not execute if not loaded. 
+- include once - only once the file will be included. Case of chained files. 
+- require once - performance is much slower.
+
+<?php 
+include 'someFile.php';	//or path to file if ot isin another directory.
+# code using code from someFile.php
+?>
+<?php 
+include 'var' .DIRECTORY_SEPARATOR. 'someFile.php';	//cross-platform
+?>
+
+/ * POST and GET
+- super globals, POST is an array
+- NetBeans: tools > options > editor > code templetes > new {prnt} +
+{echo '<pre>' . print_r($cursor, true) . '</pre>';}
+
+- normalization and validation of the information:
+	- strlen() is not binary safe.
+	- mb_ means multi-byte. Ivan == 4, but Иван == 8 --> 2 bytes for encoding cyrellic.
+	- mb_strlen($username, 'UTF-8'); or just set in the beginnig the prefered
+	 encoding with mb_internal_encoding('UTF-8');
+	- or better set the encoding to UTF-8 in the php.ini file
+
+
+// to normalize numbers: 
+// number_format();
+// str_replace(',','.',$someFloatNumber);
+
+/ * Sessions:
+- headers - contain the request information
+		  - what request, from which browser, for what asset
+		  - they are just text files and are indestinguishable for the server
+		  	- bots may send those
+		  - cockies are send with headers
+
+- cockies - information the web site asked your browser to save
+		  - they act as indentifiers for the server, may track your behavior
+
+- keep me logged checkboxes are implemented with sessins - they keep user info
+
+- servers can not destinguish users, all requests are threated as unique.
+Sessions help servers remember users. Thus not making them enter username and password each request.
+
+<?php
+
+echo $a += 1;
+// a will always be 1
+
+session_start();
+$_SESSION['a'] += 1;
+echo $_SESSION['a'];
+// a will be increment 
+
+?>
+
+- the super global array $_SESSION[]
+	- here we keep information that is accesible between sessions
+
+- session_start() 
+	1. php sends a special header command for appointing cockie 
+	  with an unique id which php generates
+	2. next time the browser makes a request to the web site it sends the
+	  cockie and its id with the header
+	3. session_start() will check if this cockie with this id exists and is corect
+	4. if there is information about this id it will be pushed to the $_SESSION[] array
+	5. server side code will opperate with this information
+	6. the new information will be pushed to the $_SESSION[] array for next sessions use
+
+<?php
+	session_start();
+	if($_SESSION['is_logged'] === true){
+		header('Location: index_loged.php');
+	}
+?>
+
+- session_destroy() - to implement log out functionality
+	- you can not use it without session_start() before
+
+- keep only minimal quontities of information in the session
+	- userid, islogged, etc...
+	- just identifiers
+
+
+/ * PHP and mysql:
+- always use Mysqli - the new extention for working with mysql
+- procedural:
+
+<?php 
+$connection = mysqli_connect('localhost', 'root', 'qwerty', 'users');
+if (!$connection) {
+	echo 'no database';
+	exit;
+} 
+
+mysqli_set_charset($connection, 'utf8');	// to repair cyrilic, without a '-''
+
+$query = mysqli_query($connection, 'SELECT * FROM users');
+if (!$query) {
+	//echo 'error in database';
+	echo mysqli_error($connection);	// will throw an exeption
+}
+
+echo $query->fetch_assoc();	// return an array with only one row
+// while fetch_assoc() returns value push each row in an arrays
+while ($row = $query->fetch_assoc()) {
+	echo '<pre>'.print_r($row,true).'</pre>';
+}
+
+// echo $row['user_name']; will return only the user_name from $row
+
+
+?>
+
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MySQL and PHP</title>
+</head>
+<body>
+	<form action="" method="POST">
+		<textarea name="txt" cols="30" rows="10"></textarea>
+		<input type="submit" value="Submit">
+	</form>
+
+	<?php 
+	// first open connction and set encoding
+	$connection = mysqli_connect('localhost', 'root', 'qwerty', 'users');
+	if (!$connection) {
+	echo 'no database';
+	exit;
+	}	 
+
+	mysqli_set_charset($connection, 'utf8');
+ 
+	// check for POST and after normalization push $msg to the database msg, column msg_data 
+	if ($_POST) {
+		$msg = trim($_POST);
+		$msg = mysqli_real_escape_string($connection, $msg);
+		$sql = 'INSERT INTO msg (msg_data) VALUES ("'.$msg.'")';	// always use this one atleast
+
+		if (mysqli_query($connection, $sql)) {
+			echo 'OK';
+		}else{
+			echo mysqli_error($connection);
+		}
+	}
+	?>
+</body>
+</html>

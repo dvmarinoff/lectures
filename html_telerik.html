@@ -1,0 +1,127 @@
+/*HTML*/
+/ * Tables:
+- <tr> - table row
+- <td> - table data, column
+
+- <thead> - denotes table header and contains
+- <th> - elements,instead of <td> elements
+- <tbody>- denotes collection of tablerows
+	that contains the very data
+- <tfoot> - denotes table footer but comes BEFORE the
+	<tbody> tag
+- <colgroup> and <col> - define columns (used to set
+	column widths)
+
+- cellspacing - defines the empty space between cells
+- cellpadding - defines the empty space around the cell 
+ content
+- colspan - defines how many columns the cell occupies
+- rowspan - defines how many rows the cell occuppies
+
+/ * HTML Forms
+- many questions will be from the web 
+
+//What are HTML Forms:
+- The primary method for gathering data from site visitors
+	- may contain:
+		- Text
+		- Buttons
+		- Menus, Slidees, etc...
+//Syntax:
+- <form></form>
+- <form name="user" method="POST" action="/var/www/index.php"></form>
+
+//HTTP basics:
+- Method, Status, Type
+- request and response
+	- header - 
+	- GET request- give me something without changing anything. Save operation.
+	- POST request - when we make changes to the server
+- use https for trnsfering sensitive information lie login
+
+//Testing:
+- aviod testing from the file system
+- better from the server localhost/
+
+
+//Demo:
+- if no action or method is specified the form will be directed to the same place with GET 
+- buttons are for use with JavaScript
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>html forms</title>
+</head>
+<body>
+	<form action="">
+		<fieldset>
+			<legend>Names</legend>
+			<label for="username">Username</label>
+			<input name="username" type="text" placeholder="Enter your name">
+		</fieldset>
+		
+		<textarea name="multilineText" id="" cols="30" rows="10"></textarea>
+		<input type="checkbox">
+		<input type="radio">
+		<input type="hidden">
+	</form>
+</body>
+</html>
+
+//Sliders and Spinboxes:
+- spinboxes does not work in firefox
+- restrics users to enter only numbers
+	- attributes min, max, step
+	- can become Spinbox or Slider, depending on the input type
+- HTML5 attributes -
+	- autocomplete - on
+	- autofocus
+	- required
+	- email
+	- URL
+	- Telephone
+- tab index -
+	- attribute - tabindex="1"
+	- negative index will skip it
+
+<input type="range" min="0" max="100">	
+<input type="number" min="0" max="100">
+
+<div>
+	<input type="range" min="10" max="100" step="10" value="50">	
+</div>
+
+//Frames:
+- multiple html files are loaded on one page
+
+<frameset cols="180px,*,150px">
+	<frame src="left.html">
+	<frame src="middle.html">
+	<frame src="right.html">
+</frameset>
+
+- iframes provide a way to show one website inside anothor website -
+
+<iframe name="iframeGoogle" width="600" height="400" src="http://www.google.com" frameborder="yes" scrolling="yes"></iframe>
+
+/ * Semantic HTML:
+- 
+	- header
+	- nav
+	- hgroup
+	- section
+	- article
+	- aside
+	- figure
+	- figurecaption
+	- audio
+	- video
+	- footer
+
+
+<td><label for="city">City</label></td>
+                            <td><input type="text" name="city" placeholder="Your city"></td>
+                            <td><label for="state">State</label></td>
+                            <td><input type="text" name="state"></td>

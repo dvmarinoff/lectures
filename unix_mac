@@ -1,0 +1,185 @@
+/*Unix history*/
+-OS developed at Bell Labs(1969-1971)
+-Rewritten in C, so it can be portable(originaly in assembly)
+-C is made specifically for making portable programs for Unix
+-Unix spreads outside AT&T(1975) after anti-trust case.
+-Branches and improvments(1977-present)
+	-Open source: BSD, Linux
+	-Closed source: Solaris, AIX, HP/UX
+	-Mixed source: Mac OS X
+"Unix" now means a "Unix-like system"
+-Mobile devices are Unix -
+	-iOS, Android
+
+-Mac OS X:
+	-BSD Unix + NeXTSTEP + Apple code = Darwin
+Darwin is the the "under the hood" Unix of OS X
+Access Unix directly fromthe command line using Terminal
+
+-Differenc in power and control 
+
+//Terminal application
+echo 'Hello World'
+
+UpArrow and DownArrow to go through previous commands	
+Ctrl + a - moves cursor to start of line
+Ctrl + e - moves cursor to end of line
+Tab - autocomplete
+Tab + Tab - show list of possible matches
+Alt + ~ - Cycle between Terminal windows
+
+//Command structure
+command	options	argument 
+
+options and arguments are optional
+options could be a List:
+ls -l -a -h Desktop
+ls -lah Desktop	- short for the latter
+options sometimes have argumenton their own:
+banner -w 50 'Hello World!'
+width: 50
+
+//Kernel and shells
+-kernel - core of the OS
+	- allocates time and memory to programs
+	- OS X uses Mach kernel
+-shell  - Outer layer of OS
+	- interacts with user
+	- sends requests to kernel
+
+Shells:
+- sh - Thompson Shell(1971)
+- sh - Bourne Shell(1977)
+- csh - C Shell(1979)
+- tcsh - Tabbed C Shell(1979)
+- ksh - Korn Shell(1982)
+- bash - Bourne-Again Shell(1987)
+- zsh - Z Shell(1990)
+
+Moving around shells:
+echo $Shell	- show default shell
+echo $0		- show current shell
+sh		- to bourne shell
+bash		- to bash shell 
+exit		- exit current shell
+
+Shell can nest.
+
+//Unix manual pages
+man + what you want to look up in the manual
+f	- forward
+Space	- forward
+b	- backwards
+q	- quit
+
+man -k banner	- show what banner does
+
+/*File system basics*/
+//working directory - the dirctory where we are now, where commands are issuied
+
+pwd	- present working directory
+/	- root 
+-listing files and directories -
+ls	- list directories
+ls -l	- list directories vertical
+ls -la	- list all directories and files
+ls -lah - returns sixe in human readable format
+
+.	- reference to current directory
+..	- reference to parent directory
+.files	- configuration files
+
+-	- file
+d	- directory
+l	- link
+
+//moving around the filesystem 
+cd + path to directory	 
+cd ..		- go to parent directory
+cd ../..	- go back two levels
+cd ~		- to home directory
+cd -		- last directory
+/		- represent absolute path, root
+Ctrl + a	- beginning of line
+Ctrl + e	- end of line
+
+/Users/Someone	- absolute path
+Users/Someone	- relative path
+
+//file system organization 
+/	- Root
+/bin	- Binaries, programs
+/sbin	- System binaries, system programs
+/dev 	- Devices: hard drive, keyboard, mouse, etc.
+/etc	- System configurations
+/home 	- User home directories
+/lib	- Libraries of code
+/tmp	- Temporary files
+/var	- Various, mostly files system uses
+/usr	- User programs, tools and libraries (not files)
+/usr/bin
+/usr/etc
+/usr/lib
+/usr/local
+
+/*Working with files and directories*/
+//naming files
+- avoid /\*&%$|^~<> and most other symbols
+- use A-Z, a-z, 0-9, period, underscore, hyphen(do not start withthis one)
+- stick with lowercase
+- escape spaces with \ or " "
+- file endings
+
+//creating files
+- touch	- updates file access if it exists else creates it
+- use text editor
+
+//UNIX text editors
+ed - earlier
+vi - visual editing mode
+vim - vi improved
+GNU Emacs - Macros to automate work
+pico - 
+nano - basic features, easy to use
+
+//reading files
+cat	- concatenate
+more	- paginated output, can not go backwards
+less	- backward scrolling, better memory use
+g	- go to the top of the document
+G	- go to the end of the document
+which	- return path to file
+
+head	- display lines from beginning of a file
+tail	- display lines from end of a file
+tail -f	- 'follow' the tail of a file
+
+tail -f /var/log/system_log
+tail -f /varlog/apache2/access_log
+
+//creating directoies
+mkdir testdir
+
+mkdir testdir/test1	- will work if testdir exist
+mkdir -p testdir/test1/test2	- parent option for creating multuple directories
+-v	- verbose, return feedback
+-vp
+
+//moving and renaming files and directories
+mv newtextfile.txt testdir/newfile.txt	- moving
+mv newfile.txt testdir/new_file.txt	- also for renaming
+ 
+options:
+-n	- no overwriting
+-f	- force overwriting
+-i	- interactive overwriting, 'ask me'
+-v	- verbose
+
+//coping
+cp new_file.txt newer_file.txt
+
+options:
+-R	- recursive copy
+
+
+

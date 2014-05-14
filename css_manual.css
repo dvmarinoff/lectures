@@ -1,0 +1,346 @@
+/*CSS*/
+- 62.5% magic number that all brousers display as 10px use to 
+ set as a root for all browsers
+- em - from parent
+- rem - from root
+
+/ * Basics:
+- Some css styles are inherited:
+	- text and list-related -color, font-size, line-height, text-align, etc.
+	- box and positioning-related - width, height, border, margin, etc.
+	- <a> elements do not inherit color and text-decoration
+
+- + selector - used to match "next sibling"
+
+img + .link {float: right;}
+
+	- this will match all siblings with class name link that appear immediatly after <img> tag
+
+- > selector matches direct child nodes only - not childs of direct child
+
+p > .error {font-size: 8px;}
+
+	- this will match all elements with class error, direct children of <p> tag
+
+- .class1.class2(no space!)
+
+p.post-text.special {font-weight: bold;}
+
+	- matches elements with both (all) classes applied at the same time
+
+- attribute selectors []:
+	
+	- element with a given attribute -
+
+a[title] {color: black;}
+
+	- elements with a concrete attribute value - 
+
+input[type=text] {font-size: 2rem;}
+
+	- elements whose attribute values contain a word -
+
+a[title*=logo] {border: none;}
+
+- pseudo selectors : -
+
+	- pseudo-classes define state:
+		- :hover, :visited, :active, :lang
+	- pseudo-elements define element "parts" or are used to generate content:
+		- :first-line, :first-letter, :before, :after
+	- structural pseudo-classes:
+
+:root
+	- the root of the document
+E:nth-child(n)
+	- an E element, the n0th child of its parent
+E:nth-last-child(n)
+	- same, but counting from the last on
+E:nth-of-type(n)
+	- an E element, the n-th sibling of its type
+	// useful for table rows
+tr:nth-child(2n) {background-color: #297;}
+tr:nth-child(2n+1) {background-color: #279;}
+
+E:only-child
+	- an E element, only child of its parent
+E:only-of-type
+	- an E element, only of its type
+E:empty
+	- an E element that has no children (including text nodes)
+
+.title:before {content: ">>";}
+.title:after {content: "<<";}
+
+- css values:
+	- all values are strings
+	- px
+	- colors are RGB in hex - #1122dd and dec - rgb{255, 255, 125} 
+		- colorzilla - plug-in for picking colors from web sites
+
+/ * font sizes:
+	- always in % because they render more consistently than ems, and because they
+	allow user-initiated resizing(unlike px)
+
+
+/ * Layout technoques:
+- display property:
+	- block: 
+		- elements have width and height
+		- the elements stack on top of each other and fit their parents width
+	- inline: 
+		- elements does not have width and height
+		- elements are positioned next to each other
+			- <span> - the standart inline element
+	- none:
+		- will render the page as if the element does not exist
+		- frequently used with JavaScript to show and hide elements without recreating them 
+	- inline-block:
+		- elements have width and height
+		- elements are positioned next to each other
+- max-width:
+	- using it instead of width will improve browser handling of small windows
+	- supported IE7+
+- box-sizing:
+	- alternative to the classic box model
+	- box-sizing: border-box and the padding and border no longer increase its width, only the heigth
+	- support IE8+
+- positioning:
+	- static:
+		- default, means no positioning
+	- relative:
+		- top,right, bottom and left properties are available
+		- these will cause it to be adjustedaway from itsnoral position
+		- other content will not beadjusted to fitinto any gap left by the element
+	- fixed:
+		- positioned relative to the viewport, it always stays in the same place
+		- mobile browsers may have shaky support for it
+	- absolute:
+		- behaves like fixed exept relative to the nearest positioned ancestor else the document body
+		- use to position child elements inside thier parent elements
+
+
+/* will set box-sizing property for all elements */
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}	
+
+- problem: how to build layouts:
+ 	- display: inline:
+ 		- problem: merges elements 
+ 		- solution: does not work
+	- floats:
+		- problem: 
+			- parent element looses its heigth 
+			- next block element rises to the parents' bottom
+		- solution:
+			- height: 
+				- set height to the conteining element
+			- clear:
+				- set it to the next block element
+				- must have one sutable for that
+			- overflow: auto:
+				- set it to the conteining element so it retains its height
+	- inline-block:
+		- displays the elements inline, but retains their width and height properties
+		- the alignment issue:
+			- by default elements with different height are aligned by their bottom
+			- vertical-align: top will fix it
+		- the whitespace issue:
+			- when display: inline-block elements are sensitive to the whitespace in the html
+			- remove whitespace from the html or set margin-right: -4px or -.25me
+
+/ * Transitions and transforms:
+
+- a link switch -
+
+a{
+	background-color: #000;
+	transition-property: background;
+	transition-duration: 1s;
+}
+a:hover{
+	background-color: #999;
+}
+
+- ease transition - start up slow, speed up, and then slow down
+	- transition-timing-function -
+		- ease (default)
+		- linear - constant
+		- ease-in - slow, speedes up
+		- ease-out - speeds up, slows
+		- ease-in-out - same as ease but slower
+	- cubic-bezier ( x1, y1, x2, y2) - handles
+	- transition-dalay: 0.5s;
+
+// 2D transforms:
+- basic syntax -
+	- transform: function(parameters);
+	- functions -
+		- translate(10px, 10px); - moves the object along X and Y
+		- translateX(20px);
+		- translateY(20px);
+		
+		- scale( .5, .5); - resize, 1 is original
+		- scaleX(1.5);
+		- scale(1.5);
+
+		- rotate(15deg); - rotetes
+
+		- skewX(); - skews
+		- skewY();
+
+		- trnsform-origin: 50% 50%; - default, origin point
+
+// 3D transforms:
+- 
+	- perspective: 500px; - mid range from 200 to 1000
+	- perspective-origin: 50% 50%; - center(default) vanishing point
+	- transform: translate3d(20px, 20px, -19px); - or woth X, Y and Z
+	- transform: translateX(20px);
+	- transform: translateY(20px);
+	- transform: translateZ(-10px);
+
+	- transform: rotate(10,20,20,15deg); - last is angle of rotation 
+
+	- transform-style: preserve-3d; - default
+	- transform0style: flat; - maps children element on parent;
+
+/ * css-trics:
+- flex-box
+
+- autoprefixer
+
+- grunt
+
+/ * SASS:
+- an extension of CSS3 adding nestedrules,variables, mixins, selectorinheritance,etc...
+- two syntaxes 
+	- SCSS - new, a superset of CSS3
+
+	- SASS - old, indented code
+
+- console
+	- compiling to css code
+
+--update - 
+	sass --update var_styles.scss
+
+	sass --update var_styles.scss:my_styles.css 	// the output file name
+
+	sass --update hw_folder:hw_folder 		// updates the whole folder
+
+
+--watch - will watch over the file or folder for changes
+	sass --watch hw_folder:hw_folder
+
+- variables
+	- $ for declaration
+	- types:
+
+-------------------------------------
+numbers 	$myVar: .25em;
+strings 	$myStr: "some text";
+colors 		$myColor: blue;
+booloeans 	$myBool: false;
+null 		$myVar: null;
+list 		$myList: 1px solid #000;
+-------------------------------------
+
+- nested rules
+
+.content{
+	p{
+		(some more styles)
+	}
+
+	a{
+		(yet more styles)
+		&:hover{
+			(hover link styles)
+		}
+	}
+}
+
+- mixins
+	- mixins let you define common properties once, then re-use them
+		- define @mixin directive
+@mixin .myMixin {
+	font-size: 18px;
+	background-color: #fff;
+}
+		- use with @include directive
+.myStyle{
+	@include myMixin;
+}
+
+- operators
+	- math operators and if statement
+
+$gender: boy;
+$myColor: if($gender=="boy", #00f. #f00);
+$basepadding: 10px;
+$basethickness: 4px;
+
+#mypara{
+	color: $myColor;
+	border: ($basethickness + 10)/2;
+	padding: $basepadding $basepadding+20;
+}
+
+- mixins with arguments
+
+// using regular arguments
+// definition:
+@mixin customBorder ($width, $color, $style) {
+	border: {
+		width: $width;
+		color: $color;
+		style: $style;
+	}
+}
+
+// customizing with values:
+#mypara {
+	@include customBorder(3px, blue, dotted);
+}
+
+// using named arguments with defaults
+@mixin customBorder2 ($width: 1px, $color: black, $style: solid) {
+	border: {
+		width: $width;
+		color: $color;
+		style: $style;
+	}
+}
+
+- functions
+
+	- color:
+lighten(color, amount)
+darken(color, amount)
+saturate(color, amount)
+desaturate(color, amount)
+fadein(color, amount)
+fade(color, amount)
+mix(color1, color2)
+hue(color)
+saturation(color)
+lightness(color)
+alpha(color)
+grayscale(color)
+complement(color)
+invert(color)
+
+	- math:
+round(number)
+ceil(number)
+floor(number)
+percentage(number)
+abs(number)
+min(n1, n2, ...)
+max(n1, n2, ...)
+
+- output style formating
