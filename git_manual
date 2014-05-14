@@ -104,3 +104,5 @@ HEAD pointer -
 /*Making changes to files*/
 git status	//check changes that are not staged for commit 
 
+
+// git push --set-upstream origin master
