@@ -962,3 +962,172 @@ function outer () {
 // ===================================================
 // Douglas Crockford: 
 
+	// Function the Ultimate:
+
+ - the key thing in JavaScript
+
+ - function expression 
+ 	- produces instance of a function object
+ 	- function objects are first class
+ 	- inherit from Function.prototype
+ 		- functions can have methods
+
+ - var statement
+ 	- a variable declared anywhere within a function is 
+ 	 visible everywhere within the function
+
+ 	- it gets split into two parts:
+ 		- The declaration part gets hoised to the top of
+ 		 the function, initializing with undefined
+ 		- The initialization part turns into an ordinary assaignment
+
+		var myVar = 0, myOtherVar;
+
+		// expands into:
+		var myVar = undefined,
+			myOtherVar = undefined;
+			...
+		myVar = 0;
+
+- function statement
+	- looks a lot like function expression
+	- mandatory name, parameters, ...
+
+	- it is just a short-hand for a var statement with a function value.
+
+	function foo() {}
+
+	// expands to:
+
+	var foo = function foo() {};
+
+	// expands to:
+
+	var foo = undefined;
+	foo = function foo() {};
+
+	- the assaignment of the function is also
+
+- expression v statement
+
+	- if the first token in a statement is function,
+	 then it is a function statement
+
+- Scope
+
+	- blocks do not have scope, only functions
+	- variables defined in a function are not visible outside of the functionality
+
+- Thus:
+	
+	- Declare all variables at the top of the function
+	- Declare all functions before you call them
+
+- Return statement
+
+	return expression;
+
+	or
+
+	return;
+
+	- If there is no expression, then the return value is undefined
+	- Exept for constructors, whose default return value is this
+
+	- you cannot set linereturn between the return and the expression
+	 it will return undefined
+
+- Two pseudo parameters
+
+	- arguments
+		- when a function is invoked, in addition to its parameters,
+		 it also gets a special parameter called arguments
+		- containing all of the arguments form the invocation
+		- it is an array-like object
+		- arguments.length is the number of arguments passed
+		- weird interaction with parameters
+			- do not mess with it, it is readonly
+			- you may reassign the arguments
+
+
+	- this (unfortunately)
+		- contains a reference to the object of invocation
+		- allows a method to know what object it is concerned with
+		- allows a single function object to serve many functions
+		- is key to prototypal inheritance
+
+- Invocation 
+
+	- The ( ) suffix operator surrounding zero or more comma separated arguments
+	- The argument will be bound to parameters
+	- too many arguments will be ignored
+	- too few arguments, the missing will be undefined
+	- There is no implicit type checking on the arguments
+
+	- Four ways to call a function:
+
+		- Function form:
+			- this is set to the global object
+			- but fixed in ES5/Strict to undefined
+			- an inner function does not get access to the outer this
+				- so use that or self:
+
+					var that = this;
+
+			functionObject(arguments)
+
+		- Method form:
+			- this is set to thisObject, the object containing the function
+			- this allows methods to have a reference to the object of interest
+
+			thisObject.methodName(arguments)
+			thisObject["methodName"](arguments)
+
+		- Constructor form:
+			- a new object is created and assigned to this 
+			- if there is not an expliced retirn value, then this will be returned 
+			- used in the Pseudoclassical style
+
+			new FunctionObject(arguments)
+
+		- Apply form:
+			- allows for calling the function, explicitly specifying thisObject 
+			- can take an array or sequance of parameters	
+
+			functionObject.apply(thisObject, [arguments])
+
+- Side Effects
+
+	- 
+
+
+// ===============================================================
+- Summary:
+// ===============================================================
+
+- Classical Inheritance:
+	
+	// super class Person  
+	function Person(fname, lname) {
+		this.fname = fname;
+		this.fname = lname;
+	}
+	// attach method to Person
+	Person.prototype.toString = funtion() {
+		console.log(this.fname + ' ' + this.lname);
+	}
+
+	// subclass Student
+	function Student(fname, lname, grades) {
+		Person.apply(this, arguments);	// Inherit constructor(superclass properties), == Person.call(this, name, age);
+		this.grades = grades;
+	}
+
+	// Inherit Person
+	Student.prototype = new Person();
+	Student.prototype.constructor = Student;
+
+	// override toSring for Student
+	Student.prototype.toString = function() {
+		consoe.log(this.fname + ' ' + this.lname + ' ' + this.grades.join(', '));
+	}
