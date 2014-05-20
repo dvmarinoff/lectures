@@ -1,0 +1,49 @@
+//=========================================
+// Yoman
+//=========================================
+
+- install nodejs			> sudo add-apt-repository ppa:chris-lea/node.js
+(ubuntu only, for			> sudo apt-get update
+latest version)				> sudo apt-get install nodejs
+
+- install yoman 			> sudo npm install -g yo
+
+- install generator 		> sudo npm install -g generator-webapp
+
+- run web server 			> grunt server 		
+
+- build and minify 			> grunt build 		
+(dist folder)
+
+- add package with bower 	> bower install <package_name> -S
+
+- init dependancies 		> bower install
+
+//=========================================
+// Bower- install nodejs
+//=========================================
+
+- bower install component 	> bower install name -S
+							> bower install name#version -S
+
+- bower list installed 		> bower list
+
+							> bower list --paths  
+
+- copy/paste to include in file... done
+
+- uninstall 				> bower uninstall name
+
+- init package 				> bower init
+
+- when pulled from repo 	> bower install
+
+- install from github 		> bower install url
+
+//=========================================
+// Grunt
+//=========================================
+
+- install 	> sudo npm install -g grunt
+- 
+
