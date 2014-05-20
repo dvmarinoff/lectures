@@ -181,5 +181,44 @@ cp new_file.txt newer_file.txt
 options:
 -R	- recursive copy
 
+//deleting
+rm somefile.text 	- removes it permanantly, does not sends it first to the trash
+rmdir folder		- removes non-empthy dirs
+rm -r /path/		- removes dirs
+
+//hard links 
+ln  filetolink hardlink name/pathtofile 	- reference to the file, that do not break,
+											 if file is moved or deleted
+
+//symbolic links - 'sym link'
+ln -s filetolink symlink	- reference a file or a directory path,
+						  	 break when file is moved
+
+//searching 
+find path expression
+find ~/Documents -name "someimage.jpg"
+
+	- wildcard characters
+????	- any one character
+*		- zero or more characters (glob)
+[] 		- any character in the brackets
+
+"index.????"
+"index.*"
+"*.html"
+"index[123].html"
+"file?[123].html"
+
+-and -not -path *Preferences* 	- excludes from search 
+
+
+
+
+
+
+
+
+
+
 
 
