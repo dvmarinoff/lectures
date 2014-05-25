@@ -47,6 +47,10 @@ latest version)				> sudo apt-get install nodejs
 
 - install from github 		> bower install url
 
+- search					> bower search 
+
+- update dependancy			> bower update
+
 //=========================================
 // Grunt
 //=========================================
