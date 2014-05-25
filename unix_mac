@@ -211,7 +211,14 @@ find ~/Documents -name "someimage.jpg"
 
 -and -not -path *Preferences* 	- excludes from search 
 
+// create permenent alias
+- craete a file .bash_aliases in users home directory
 
+- examples:
+
+alias ll='ls- la'
+
+alias c='clear' 
 
 
 

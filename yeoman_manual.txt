@@ -19,6 +19,13 @@ latest version)				> sudo apt-get install nodejs
 
 - init dependancies 		> bower install
 
+- known issues:
+	- Issue: yo does not recognize generators
+	- Solution: The parent folder of npm binaries needs to be in your PATH
+
+	// replace with the according path for your system
+	export PATH=/usr/lib/npm/bin:$PATH
+
 //=========================================
 // Bower- install nodejs
 //=========================================
@@ -44,6 +51,40 @@ latest version)				> sudo apt-get install nodejs
 // Grunt
 //=========================================
 
-- install 	> sudo npm install -g grunt
-- 
+- install 					> sudo npm install -g grunt
 
+- min 						> grunt min
+- specify folder			> grunt min:dist
+
+module.exports = function(grunt) {
+	grunt.initConfig({
+		min: {
+			dist: {
+				src: ['app/some-script.js', 'app/other-script.js'], 	
+				dist: 'scripts.min.js'
+			}
+		}
+	});
+};
+// or  'app/*.js' or 'app/some-script.js' for just one file
+
+module.exports = function(grunt) {
+	meta: {
+		banner: '/* This is my minified app, build <%= grunt.templete.today() %> */'
+	},
+	min:{
+		dist: {
+			src: ['<banner>', 'app/some-script.js'],
+			dist: 'scripts.min.js'
+		}
+	},
+	// watches selected files and executes selected tasks
+	watch: {
+		files: ['app/*.js'],
+		tasks: ['min:dist']
+	},
+	// register default tasks, to run with 		> grunt
+	grunt.registerTask('default', [
+		'min'
+	]);
+}
