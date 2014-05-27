@@ -565,16 +565,222 @@ var templete = "{{name}} has " + "{{#marks}} {{marks.length}}" +
 
 
 // Promises and asynchronious programming
+- JavaScript is single-threaded
+	- long-running operations block other operations
+- Asynchronous operations in JavaScript
+	- break up long operations into shorter ones
+	- so other operations can 'squeeze in'
+	- delay execution
+	- postpone heavy operations to the end of the event loop
+	- to give event handlers the ability to respond
+- Browsers provide some asynchronous APIs
+	- web workers
+	- AJAX
+	- Geolocation
+	- CSS3 animations, etc.
+	
+	- all of the above require callbacks
+		- functions to call at some point
+		- when beginning to do work
+		- after the work is done to transmit values
 
+- Callback-oriented Programming with JavaScript
+	
+	- Callback function
+		- a function object passed to another function
+		- the other function can call the passed one
+		- the other function can give arguments
 
+	- Examples:
+		- event handlers are sort-of callback
+		- setTimeout, setInterval take a callback argument
+		- some OOP patterns use callback foe _super
+
+	- Problems:
+		- heavily nested functions
+		- errors and exeptions are a nightmare to process
+
+- Using Browser-provided Async APIs
+
+	- How do they work?
+		- js runs in one thread of the browser
+		- the browser can create other threads for its own needs, including async APIs
+
+	- How do we use async APIs with js?
+		- request some browser API, 
+		- pass arguments for what you want,
+		- provide callback methods to execute when the API has processed your request
+
+	- Using Geolocation API
+		- locating the device takes time
+		- to request the current position call 
+			navigator.geolocation.getCurrentPosition
+		- pass in success and error handler
+		- i.e. pass in callback function
+		- process the data, visualize it accordingly
+
+- Promises
+
+	- A promise is an object which represents an eventual (future) value
+		- methods 'promise' they will return a value, correct or an error
+
+	- A promise can be in one of three states:
+		- fulfilled(resolvded, succeded)
+		- rejected (an error happened)
+		- pending (unfulfilled yet, still being computed)
+
+	- Promise objects can be used in code as if their value is known
+		- we attach code which executes when the promise is fulfilled, rejected or optinaly report progress
+
+	- Promises are a pattern
+		- no defined implementation, but stict requirements
+		- initially described in CommonJS Promises/A
+
+		- Each promise has a .then() method accepting 3 parameters:
+			- Success, Error and Progress function
+			- all parameters are optional
+
+			promiseMeSomething()
+				.then(function(value) {
+					// success
+				}, 
+					function(reason) {
+						// error
+					}
+				);
+
+		- Each .then() method returns a promise in turn
+			- meaning promises can be chained
+
+			asyncPromise()
+				.then(addTwo)
+				.then(printResult, onError);
+
+		- Full and modern description of promises:
+			- CommonJS/A+
+
+			http://promises-aplus.github.io/promises-spec/
+
+			- the Q library fulfills the A+ spec
+
+			http://github.com/kriskowal/q
+
+- The Q Promise Library
+
+	-
+
+- Promises in jQuery
+
+	-
 
 // HTTP and AJAX
 
 
 
 // Consuming remote data with JavaScript
+- XMLHttpRequest
+	- XMLHttpRequest is ajs object, that provides a way to retrive a resourse by URL
+	- Designed by Microsoft, adopted by Mozilla, Apple and Google, now a standart in the W3C
+	- XHR ca retrive resources bot sync and async (do not use the sync)
+	- the data can be in any format not strictly XML
 
+	// instantiate the xhr object
+	var httpRequest = new XMLHttpRequest();
 
+	httpRequest.open('GET', 'data.js', true);	// async request
+
+	httpRequest.send(null);		// sending the request with no data, if POST request data is usually send
+
+	- to create a cross-browser instance, a feature detection is needed
+	
+	(function (){
+		var httpRequest = new XMLHttpRequest();
+		http.request.onreadystatechange = function () {
+			if(httpRequest.readyState === 4 && httpRequest.status === 200) {
+				renderHttpResponse(JSON.parse(http.responseText));
+			}
+		}
+
+		httpRequest.open('GET', 'scripts/data.js', true);
+		httpRequest.setRequestHeader('Content-type', 'application/json');
+
+		http.send(null);
+
+		function renderHttpResponse(response) {
+			var list = '<ul>';
+
+			for (var i = 0; i < response.length; i++) {
+				var person = response[i];
+				list += '<li>'' + person.fname + ' ' + person.lname + '</li>';
+			}
+
+			document.getElementById('http-response').innerHTML = list;
+		}
+	}());
+
+	// Tip:
+	// check if status code starts with 2
+	(status-code / 100) | 0 === 2
+
+	// note export it in a variable, do not evaluate it in the if statment
+	// first the === will be evaluated
+
+	- http object with module pattern:
+
+	var httpRequest = (function (){
+
+		function getHttpRequest () {
+			
+			var httpRequest;
+			
+			if(window.XMLHttpRequest) {
+				httpRequest = new XMLHttpRequest();
+			} 
+			else if(Window.ActiveXObject) {
+				try {
+					httpRequest = new ActiveXObject('Msxl2.XMLHTTP');
+				} 
+				catch(e) {
+					try {
+						httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
+					} catch (e) {
+				
+					}
+				} 
+			}
+
+			return httpRequest;
+		} // getHttpRequest func end
+
+	}());
+
+- HTTP Client - Server
+
+	-
+
+- jQuery AJAX
+
+	- $.ajax(options)
+	- $.getJSON(url, success)
+	- $.postJSON(url, success)
+	- $(selector).load(url)
+
+ex1:
+
+<div id="http-response"></div>
+<script>
+	$.ajax({
+		url: 'scripts/data.js',
+		type: 'GET',
+		contentType: 'application/json',
+		success: function (data) {
+			$('#http-response').html(JSON.strigify(data));
+		},
+		error: function (err) {
+			$('http-response').html('<h3>' + err + '</h3>');
+		}
+	})
+</script>
 
 // Google API
 
@@ -662,7 +868,7 @@ demoApp.config(function($routeProvider) {
 / * Node.js
 
 - Building blocks
-	- libuv - high-p erformance event I/O library
+	- libuv - high-performance event I/O library
 	- V8 - Google Chrome's JavaScript engine
 	- JavaScript -> C++
 
@@ -804,7 +1010,7 @@ ex3:
 		- js is unicode friendly, but not the best when it comes to binary data
 		- handles octet streams
 		- can be easily transformed into js objects by setting
-		an encoding in the buffer;s toString() method
+		an encoding in the buffers' toString() method
 
 	- events
 		- the event loop is a while(true) loop
