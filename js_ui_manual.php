@@ -858,9 +858,50 @@ demoApp.config(function($routeProvider) {
 });
 
 // using factories and services
--
+- remote or local, build-in or custom
+	- buitl-in:
+		- $http - AJAX request
+		- $resource - AJAX with restfull service architecture
+		- $q - Promises library
+		- $locale - localization of dates, numbers
+		- $log - logs in the console
+		...
+- create custom factory
 
+module.factory('serviceName', function(service) {
+	// implement service
+});
+// returns an object that is injected in the controller
 
+- inject it in a controller
+
+eventsApp.controller('Ctrl', function($scope, serviceName) {
+	// use service
+});
+
+ex1:
+
+musicApp.factory('artistData', function ($http) {
+	
+	return {
+		getArtist: function(id, success) {
+			$http({method: 'GET', url: '/data/artist/' + id})
+				.success(function (data, status, headers, config) {
+
+				})
+				.error(function (data, status, headers, config) {
+
+				});
+		}
+	}
+});
+
+// routes:
+- accociates view with controller
+
+- # - id
+
+- 
 
 
 ----------------------------------------------------------------------------------
@@ -1213,4 +1254,14 @@ block content
 
 
 
+//--------------------------------------------------------------------------------
+//Mean stack
+- mean.io
+- mean.js
+	- templetes
 
+- tutorials:
+	- scotch.io
+	- thinkster.io
+
+	

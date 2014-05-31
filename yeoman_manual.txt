@@ -92,3 +92,24 @@ module.exports = function(grunt) {
 		'min'
 	]);
 }
+
+//=========================================
+// npm
+//=========================================
+npm init   				- create package.json file
+npm install -save		- install new module
+npm install -g express 	- install global express
+npm prune				- clear package.json
+npm update				- update to latest packeges
+
+"jade": "*"				- the latest version of jade
+
+
+
+
+
+
+
+
+
+
