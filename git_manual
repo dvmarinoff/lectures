@@ -106,3 +106,35 @@ git status	//check changes that are not staged for commit
 
 
 // git push --set-upstream origin master
+
+/*Undoing Changes*/
+- to working directory
+git diff 				   - what the change is
+git checkout named_thing   - will take it from repo			
+git checkout -- index.html - stay on the same branc and take this file
+
+- unstaging files
+git reset HEAD file.html	- remove just this file from staging area 
+
+- amending commits
+git commit --amend -m ""
+
+- retrieving old versions
+git checkout hjdhaskjh -- index.html 	- stay in this branch and take the version 
+										 of index.html from commit with SHA hskjdahsjda
+
+/*Ignoring Files*/
+
+
+
+/*Navigating the Commit Tree*/
+
+
+/*Branching*/
+
+
+
+/*Merging Branches*/
+
+
+/*Stashing Changes*/
