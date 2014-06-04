@@ -71,7 +71,7 @@ var http = require('http'),
 
 
 //ex:5
-// node.js as client
+// node.js as a client
 var http = require('http');
 
 http.get('http://www.telerikacademy.com/', function (academyRes) {

@@ -122,8 +122,15 @@ git commit --amend -m ""
 - retrieving old versions
 git checkout hjdhaskjh -- index.html 	- stay in this branch and take the version 
 										 of index.html from commit with SHA hskjdahsjda
+- reverting a commit
+git revert asdasdasdasdr
 
 /*Ignoring Files*/
+- with .gitignore
+
+*.php
+!index.php
+/images/
 
 
 
@@ -131,7 +138,17 @@ git checkout hjdhaskjh -- index.html 	- stay in this branch and take the version
 
 
 /*Branching*/
+-
+git branch 				- show branches
+cat .git/HEAD 			- show where HEAD currently points
+ls -la .git/refs/heads
+cat .git/refs/heads
 
+- create new
+git branch new_feature
+
+- switching branches
+git checkout new_feature
 
 
 /*Merging Branches*/
