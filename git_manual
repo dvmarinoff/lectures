@@ -125,6 +125,17 @@ git checkout hjdhaskjh -- index.html 	- stay in this branch and take the version
 - reverting a commit
 git revert asdasdasdasdr
 
+- undo multiple commits
+
+git reset     - moves the HEAD pointer like the point head of a tape recorder
+
+- options 
+	--soft 	  - does not change staging index or working directory 	 	
+	--mixed   - changes staging index to match repository, 
+			  - does not changes working directory
+	--hard    - changes staging index and working directory to match repositor
+
+
 /*Ignoring Files*/
 - with .gitignore
 
@@ -132,9 +143,77 @@ git revert asdasdasdasdr
 !index.php
 /images/
 
+- use the github .gitignore repository for tips
 
+- ignoring files globally
+touch .gitignore_global 	- create the file in the user directory
+git config --global core.excludesfile ~/.gitignore_global 	- tell config about it 
 
 /*Navigating the Commit Tree*/
+- referencing commits
+- tree-ish - something that reference a part of the tree
+
+- full SHA-1 hash
+- short SHA-1 hash
+	- at least 4 characters
+	- uambiguous 8-10 characters
+	- 
+- The HEAD pointer
+- brach reference, tag reference
+
+- parent commit
+HEAD^, acf87804^, master^
+HEAD~1, HEAD ~
+
+- grantparent commit
+HEAD^^, acf87804^^, master^^
+HEAD~2,
+
+- great-grantparent commit
+HEAD^^^, acf87804^^^, master^^^
+HEAD~3,
+
+- 
+git ls-tree tree-ish
+
+git ls-tree HEAD 		        - the tip of the currentky checout branch
+git ls-tree master              - the master branch
+git ls-tree master assets/ 	    - the assets directory at master branch
+git ls-tree master^ assets/ 	- the previous state of assets directory
+
+- blob - any kind of file
+- tree - directory
+
+- getting more from commit log
+
+git log --oneline 				- compresses all to one line output
+git log --oneline -3			- limit to the last 3 commits
+git log --since="2012-06-20"    - limit time since
+git log --until="2012-06-20" 	- limit time until
+git log --since="2 week ago" --until="3 days ago"
+git log --since=2.weeks --until=3.days
+git log --author="Kevin"
+git log --grep="temp"			    - global regular expression search
+git log 2907418..acf8401 --oneline 	- range with SHA 
+git log c4b9124.. index.html        - check history of file index.html since that commit
+git log -p c4b9124.. index.html     - see all the changes
+git log --stat --summary 			- shows statistics
+git log --format=oneline 			- returns full SHA
+
+format=short						- shorter
+format=medium						- default
+format=full 						- commit author
+format=fuller   					- author, date
+format=email
+format=raw  						- raw information stored in git
+format=graph 						- the branch graph
+
+git log --oneline --graph --all --decorate
+
+- viewing commits
+
+git show djfsl13 				- shows author, date and changes for the commit
+
 
 
 /*Branching*/
@@ -155,3 +234,15 @@ git checkout new_feature
 
 
 /*Stashing Changes*/
+
+
+
+
+
+
+
+
+
+
+
+// #fdffb3 - gold, #0a1015 - black
