@@ -205,3 +205,207 @@ exports.updateCustomer = function (customer) {
 
 
 //ex:12
+
+
+/* Express */
+//ex:1
+var express = require('express'),
+	http = require('http');
+
+var app = express();
+
+app.configure(function () {
+	app.set('port', process.env.PORT);
+	app.use(express.bodyParser());
+});
+
+app.get('/', function (req, res) {
+	res.send('Hello, Express!');
+});
+
+app.get('/hi', function (req, res) {
+	var message = [
+		'<h1> Hello, Express</h1>',
+		'<p> Welcome to Express App Tutorial</p>'
+		'<ul><li>fast</li>',
+		'<li>fun</li>',
+		'<li>flexible</li></ul>'
+	].join('\n');
+
+	res.send(message);
+});
+
+app.get('/users/:userId', function (req, res) {
+	res.send('<h1>Hello, User # ' + req.params.userId + '!');
+});
+
+app.post('/users', function (req, res) {
+	res.send('Creating a new user with the name ' + req.body.username + '.');
+});
+
+app.get(/\/users\/(d*)\/?(edit)?/, function (req, res) {
+	// matches:
+	// /users/10
+	// /users/10/
+	// /users/10/edit
+
+	var message = 'user # ' + req.params[0] + 's profile';
+
+	if (req.params[1] === 'edit') {
+		message = 'Editing ' + message;
+	} else {
+		message = 'Viewing' + message;
+	}
+
+	res.send(message);
+});
+
+http.createServer(app).listen(app.get('port'), function () {
+	console.log('Express server listening on port ' + app.get('port'));
+});
+
+//ex:2
+var express = require('express'),
+	http = require('http');
+
+var app = express();
+
+app.configure(function () {
+	app.set('port', process.env.PORT || 3000);
+	app.use(express.bodyParser);
+});
+
+app.get('/', function (req, res) {
+	res.render('home.jade', {
+		title: 'building web apps in node with express'
+	});
+});
+
+http.createServer(app).listen(app.get('port'), function () {
+	console.log('Express server listening on port ' + app.get('port'));
+})
+
+// home.jade
+extends layout
+
+block content
+h1 Hello, Express!
+	h2 = title
+
+// layout.jade
+html
+head
+body
+h1 My First Express App
+block content
+p
+default content
+
+
+// package.json
+{
+	"name": "someApp",
+	"version": "0.0.1",
+	"private": "true", // leave it true if not publishing as a npm package
+	"scripts": {
+		"start": "node app" // use npm start to run node app
+		"build": "/bin/build.js" // same
+	},
+	"dependancies": {
+
+	},
+	"devDependancies": {
+		"nodemon": "*"
+	}
+}
+
+//ex:3
+// a config block for development environment
+app.configure('dev'function () {});
+// a confug block for production environment
+app.configure('production', function () {});
+
+
+// or just one block with the variable
+app.confugure(function () {
+	app.set('port', process.env.PORT || 3000);
+	app.set('views', __dirname + '/views');
+	app.set('view engine', 'jade');
+	//app.set('view cache', true);	// development only
+	//app.enable('view cache');
+
+	// middleware from connect
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(app.router);
+	app.use(express.static(__dirname + '/public'));
+});
+
+
+// jade basics:
+h1 Hello
+h2 = title
+
+-
+var name = 'Andrew'; // js block declaaring a variable
+
+ul # nav
+li.current One
+li # {
+	name
+} // variable used here
+a(href = "/view1") // attributes
+p
+pre | I want | to put | a lot of text here
+
+p.
+I want
+to put
+a lot of text here
+
+// native if... else:
+-
+var followerCount = 2;
+
+p
+if followerCount === 0 | You have no followers.
+else if followerCount === 1 | You have one follower.
+else | You have #(followerCount) followers.
+
+// for each:
+-
+var users = [];
+
+ul
+each user in users
+li # {
+	user.name
+} & lt;
+# {
+	user.email
+} >
+
+// mixins:
+mixin userLi(user)
+li # {
+	user.name
+} & lt;
+# {
+	user.email
+} >
+
+// calling the mixin
+ul
+each user in users
+mixin userLi(user)
+
+// include:
+
+//ex:4
+req.get();
+req.accepted() // what types are accepted
+req.accepts(['html', 'text', 'json']) // does it accept html, text, json
+req.acceptedLanguages // what languges the request accepts
+req.acceptedLanguages('fr') // does the request acceptes french
+
+req.params.name
