@@ -1,0 +1,74 @@
+// HTTP
+- Hypertext Transfer Protocol is the life of the web.
+- REST a set of design principals that underpin HTTP. 
+It s a simple way to organize interactins between independant systems.
+- growing in popularity since 2005 REST allows interactions with minimal amount of overhead
+with deverse devices. It is not tied to the web.
+
+- HTTP is the protocol that allows for sending documents back and forth on the web.
+- A protocol is a set of rules that determines which messages can be exchanged, and
+which messages are appropriata replies to others.
+
+- In HTTP there are to different roles: server and client. 
+- HTTP is text based. The message body can also contain other media.
+
+- HTTP messages are made of:
+    - Header that contains the metadata - encoding, HTTP method, ...
+    - Body that contains the data you want to transmit over the network.
+
+- Spying HTTP
+    - Firebug, cURL
+
+curl -v google.com
+
+> request
+< response
+
+- URLS - are how you identify the things that you want to operate on. Each URL identifies a resource. 
+
+/clients
+/clients/jim
+
+GET /clients/jim HTTP/1.1
+
+Host: example.com
+
+- Resources are best thought as nouns. 
+
+/clients/add
+
+- this is not RESTful, because it uses URL to describe an action.
+
+- HTTP Verbs - helps as tell that we want to create instead of retrieve a client.
+They tell the server what to do with the data identified by the URL.
+
+- GET - instructs the server to transmit the data identified by the URL to the client.
+Data should notbe modified on the server side as a result of a GET request. GET is read-only.
+
+- PUT - to create or update the resource
+
+- DELETE - the contrary of PUT.
+
+curl -v -X PUT -d "some text"
+curl -v -X DELETE /clients/anne
+
+- POST - used when the processing you wish to happen on the server should be repeated, if the POST 
+request is repeated. 
+       - should not cause the resource at /clients/ , itself, to be modified, but a resource whose
+       URL starts with /clients/. 
+
+- Classifying HTTP Methods
+    - safe and unsafe - safe are those that never modify resources. Only GET is safe.
+    - Idempotent - achieve the same result, no matter how many times the request is repeated.
+                 They are: GET, PUT, and DELETE. 
+
+- Representations
+    - The HTTP client and HTTP server exchange information about resourrces identified by URLs.
+    - The body can contain data in any format. The HTTP response should specify the content type of the body.
+    This is done in the header.
+
+Content/Type: application/json
+
+
+- HTTP Client Libraries
+
