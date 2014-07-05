@@ -56,3 +56,7 @@ yy      - yank current line
 - Plugins:
 // alanctkc dotfiles
 
+- Go Back or CTRL + Z
+
+in normal mode: u
+CTRL + R to redo 
