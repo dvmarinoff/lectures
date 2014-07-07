@@ -236,13 +236,29 @@ git checkout new_feature
 /*Stashing Changes*/
 
 
+/*Source Control Systems*/
 
+--> Analysis --> Design --> Implementation --> Build --> Testing --> Release -->
 
+- Dictionary
 
+Change - 
+Change set -
+Revision/ Version - 
+Update/ Clone -
+Merge -
+Branch -
 
+- Centralized version control
 
+		Repository
+	/	    |	         \
+update/commit	update/commit	update/commit
+     |              |             |
+Working copy	Working copy	Working copy
 
+	- Subversion(SVN)
 
+ 
 
-
-// #fdffb3 - gold, #0a1015 - black
+- Distributed version control
