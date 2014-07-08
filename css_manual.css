@@ -347,4 +347,43 @@ max(n1, n2, ...)
 
 
 / * HTML5 on all Browsers
+Shivs -
+Shims -
+Polyfills -
+
+Conditianal tags:
+<!--[if lt IE9]>
+    <script src="">
+<![endif]>
+
+CSS3Pie - a polyfill for IE
+pie.js + pie.htc
+
+behavior:url(scripts/pie.htc);
+
+border-radius
+linear gradient as background
+box-shadow
+border-image
+multiple background images
+
+display: inline-block;
+*display: inline;
+zoom: 1;
+
+Array indexOf Shiv
+
+Modernizer -
+
+
+
+
+Respond.js - IE9 media queries support
+
+Webshims Lib -
+
+
+
+
+
 
